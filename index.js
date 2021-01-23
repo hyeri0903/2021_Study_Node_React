@@ -91,6 +91,20 @@ app.get('/api/users/auth', auth , (req, res)=> {
 	})
 })
 
+//Logout
+app.get('/api/users/logout', auth, (req, res) => {
+	//로그아웃 하려는 유저를 Server DB에서 찾아서 토큰 삭제
+	User.findOneAndUpdate({ _id: req.user._id},
+	{token: ""}
+	, (err, user) => {
+		if(err) return res.json({ success: false, err})
+		return res.status(200).send({
+			success: true
+		})
+	})
+})
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
