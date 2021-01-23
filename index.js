@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 
-
+const {auth} = require("./middleware/auth");
 const {User} = require("./models/User");
 
 //bodyparser: client의 정보를 서버에서 분석해서 가져올 수 있도록 함.
@@ -27,7 +27,7 @@ mongoose.connect(config.mongoURI, {
 app.get('/', (req, res) => { res.send('Hello World, 안녕하세요~! 오늘 하루도 화이팅!! 힘내자 아자!') })
 
 
-app.post('/register', (req, res) => {
+app.post('/api/users/register', (req, res) => {
 	//회원가입시 필요한 정보들을 client에서 가져오면 그것들을 디비에 넣어준다.
 
 	const user = new User(req.body)
@@ -43,7 +43,8 @@ app.post('/register', (req, res) => {
 	})
 })
 
-app.post('/login', (req, res) => {
+//Loign + create Token
+app.post('/api/users/login', (req, res) => {
 	//1.요청된 이메일을 디비에서 존재하는지 찾음
 	User.findOne({email : req.body.email}, (err, user) => {
 		if(!user){
@@ -73,6 +74,22 @@ app.post('/login', (req, res) => {
 
 })
 
+
+//Auth
+app.get('/api/users/auth', auth , (req, res)=> {
+
+	//여기까지 middleware를 통과해 왔다는 얘기는 Authentication이 True라는 의미
+	resstatus(200).json({
+		_id: req.user._id,
+		isAdmin: req.user.role === 0? false : true, //0이 아니면 관리자
+		email : req.user.email
+		name: req.user.name,
+		lastname: req.user.lastname,
+		role : req.user.role,
+		image: req.user.image
+
+	})
+})
 
 
 app.listen(port, () => {
