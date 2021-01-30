@@ -26,6 +26,10 @@ mongoose.connect(config.mongoURI, {
 
 app.get('/', (req, res) => { res.send('Hello World, 안녕하세요~! 오늘 하루도 화이팅!! 힘내자 아자!') })
 
+app.get('/api/hello', (req, res) => {
+	res.send("안녕하세요~ ")
+})
+
 
 app.post('/api/users/register', (req, res) => {
 	//회원가입시 필요한 정보들을 client에서 가져오면 그것들을 디비에 넣어준다.
@@ -82,7 +86,7 @@ app.get('/api/users/auth', auth , (req, res)=> {
 	resstatus(200).json({
 		_id: req.user._id,
 		isAdmin: req.user.role === 0? false : true, //0이 아니면 관리자
-		email : req.user.email
+		email : req.user.email,
 		name: req.user.name,
 		lastname: req.user.lastname,
 		role : req.user.role,

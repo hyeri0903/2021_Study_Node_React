@@ -74,7 +74,7 @@ userSchema.methods.comparePassword = function(plainPassword, cb){
 userSchema.methods.generateToken = function(cb){
 	var user = this;
 	//jsonwebtoken 을 이용하여 token 생성
-	var token = jwt.sign(user._id.toHexString(), , 'secretToken')
+	var token = jwt.sign(user._id.toHexString(), 'secretToken')
 	//token = user._id + 'secretToken'
 	user.token = token
 	user.save(function(err, user) {
@@ -83,10 +83,8 @@ userSchema.methods.generateToken = function(cb){
 	})
 }
 
-userSchema.statics.findByToken = funciton(token, cb){
+userSchema.statics.findByToken = function(token, cb){
 	var user = this;
-
-
 	//decode token
 	jwt.verify(token, 'secretToken', function(err, decoded) {
 		//유저 아이디를 이용해서 유저를 찾은 후
