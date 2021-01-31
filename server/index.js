@@ -24,12 +24,9 @@ mongoose.connect(config.mongoURI, {
 
 
 
-app.get('/', (req, res) => { res.send('Hello World, 안녕하세요~! 오늘 하루도 화이팅!! 힘내자 아자!') })
+app.get('/', (req, res) =>  res.send('Hello World, 안녕하세요~! 오늘 하루도 화이팅!! 힘내자 아자!') )
 
-app.get('/api/hello', (req, res) => {
-	res.send("HelloWorld~ 안녕하세요~ ")
-})
-
+app.get('/api/hello', (req, res) =>  res.send('HelloWorld~ 안녕하세요~') )
 
 app.post('/api/users/register', (req, res) => {
 	//회원가입시 필요한 정보들을 client에서 가져오면 그것들을 디비에 넣어준다.

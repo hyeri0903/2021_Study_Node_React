@@ -23,13 +23,12 @@ function LoginPage(props) {
         event.preventDefault();
         //console.log('Email', Email)
         //console.log('Password', Password)
-
         let body = {
             email : Email,
             password: Password
         }
-
-        dispatch(loginUser(body))
+        
+        dispatch(loginUser)(body)
         .then(response => {
             if(response.payload.loginSuccess) {
                 props.history.push('/')
