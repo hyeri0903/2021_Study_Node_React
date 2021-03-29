@@ -1,4 +1,4 @@
-# Study_Node_Reat
+# Study_Node_Reat (2021.02)
 Study about Node js and React js 
 (from Inflearn)
 
