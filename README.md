@@ -1,6 +1,6 @@
 # Study_Node_Reat (2021.01)
 Study about Node js and React js 
-(from Inflearn)
+(through Inflearn)
 
 [System Version]
 * node : v14.15.4
